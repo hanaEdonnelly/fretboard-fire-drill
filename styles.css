@@ -53,7 +53,12 @@ h1 {
     font-size: 14px;
 }
 
-#currentNote, #currentString {
+#currentNoteLabel, #currentStringLabel, #nextNoteLabel, #nextStringLabel {
+    font-size: 14px;
+    color: #333333;
+}
+
+#currentNote, #currentString, #nextNote, #nextString {
     font-size: 24px;
     font-weight: bold;
     color: #000000;
@@ -61,6 +66,12 @@ h1 {
 
 .controls {
     margin: 15px 0;
+}
+
+.control-row {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
 }
 
 .controls label {
