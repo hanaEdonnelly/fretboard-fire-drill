@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentStringElement = document.getElementById('currentString');
     const nextNoteElement = document.getElementById('nextNote');
     const nextStringElement = document.getElementById('nextString');
+    const currentNoteLabel = document.getElementById('currentNoteLabel');
+    const currentStringLabel = document.getElementById('currentStringLabel');
+    const nextNoteLabel = document.getElementById('nextNoteLabel');
+    const nextStringLabel = document.getElementById('nextStringLabel');
     const bpmElement = document.getElementById('bpm');
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
@@ -28,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewNextCheckbox = document.getElementById('previewNext');
     const tempoSlider = document.getElementById('tempoSlider');
     const muteSoundCheckbox = document.getElementById('muteSound');
+    const reverseLayoutCheckbox = document.getElementById('reverseLayout');
 
     const tickSound = new Audio('punchy-rim-click-trap-type.mp3');
     const clickSound = new Audio('click-sound.wav');
@@ -175,6 +180,28 @@ document.addEventListener('DOMContentLoaded', () => {
         return selectedNote;
     }
 
+    function updateDisplay() {
+        if (reverseLayoutCheckbox.checked) {
+            currentNoteLabel.textContent = "String:";
+            currentStringLabel.textContent = "Note:";
+            nextNoteLabel.textContent = "Next String:";
+            nextStringLabel.textContent = "Next Note:";
+            currentNoteElement.textContent = showStringCheckbox.checked ? currentStringHolder : "--";
+            currentStringElement.textContent = currentNoteHolder;
+            nextNoteElement.textContent = previewNextCheckbox.checked ? nextStringHolder : "--";
+            nextStringElement.textContent = previewNextCheckbox.checked ? nextNoteHolder : "--";
+        } else {
+            currentNoteLabel.textContent = "Note:";
+            currentStringLabel.textContent = "String:";
+            nextNoteLabel.textContent = "Next Note:";
+            nextStringLabel.textContent = "Next String:";
+            currentNoteElement.textContent = currentNoteHolder;
+            currentStringElement.textContent = showStringCheckbox.checked ? currentStringHolder : "--";
+            nextNoteElement.textContent = previewNextCheckbox.checked ? nextNoteHolder : "--";
+            nextStringElement.textContent = previewNextCheckbox.checked ? nextStringHolder : "--";
+        }
+    }
+
     function generateNote() {
         beatCount = (beatCount + 1) % 4;
 
@@ -193,27 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextStringHolder = strings[Math.floor(Math.random() * strings.length)];
                 nextNoteHolder = getRandomMusicalNote(nextStringHolder, nextStringHolder === currentStringHolder);
             }
-
-            //if (drillRunning && beatCount === 0 && currentStringIndex % 4 === 0 && duration > 0.3) {
-              //  duration = Math.max(0.3, duration - 0.1);
-               // bpmElement.textContent = Math.round(60 / duration) + " BPM";
-            //}
         }
 
-        currentNoteElement.textContent = currentNoteHolder;
-        if (showStringCheckbox.checked) {
-            currentStringElement.textContent = currentStringHolder;
-        } else {
-            currentStringElement.textContent = "--";
-        }
-
-        if (previewNextCheckbox.checked) {
-            nextNoteElement.textContent = nextNoteHolder;
-            nextStringElement.textContent = nextStringHolder;
-        } else {
-            nextNoteElement.textContent = "--";
-            nextStringElement.textContent = "--";
-        }
+        updateDisplay();
 
         console.log("Last Note:", lastNoteHolder, "Current Note:", currentNoteHolder, "on String:", currentStringHolder, "at Beat:", beatCount);
         console.log("Next Note:", nextNoteHolder, "on String:", nextStringHolder);
@@ -248,19 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextNoteHolder = getRandomMusicalNote(nextStringHolder, nextStringHolder === currentStringHolder);
             }
 
-            currentNoteElement.textContent = currentNoteHolder;
-            if (showStringCheckbox.checked) {
-                currentStringElement.textContent = currentStringHolder;
-            } else {
-                currentStringElement.textContent = "--";
-            }
-            if (previewNextCheckbox.checked) {
-                nextNoteElement.textContent = nextNoteHolder;
-                nextStringElement.textContent = nextStringHolder;
-            } else {
-                nextNoteElement.textContent = "--";
-                nextStringElement.textContent = "--";
-            }
+            updateDisplay();
 
             function playTick() {
                 if (metronomeRunning) {
@@ -283,6 +280,11 @@ document.addEventListener('DOMContentLoaded', () => {
             guitarSamples[note].pause();
             guitarSamples[note].currentTime = 0;
         }
+        currentNoteHolder = "--";
+        currentStringHolder = "--";
+        nextNoteHolder = "--";
+        nextStringHolder = "--";
+        updateDisplay();
     }
 
     startButton.addEventListener('click', () => {
@@ -300,10 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
             playClickSound();
             drillRunning = false;
             stopMetronome();
-            currentNoteElement.textContent = "--";
-            currentStringElement.textContent = "--";
-            nextNoteElement.textContent = "--";
-            nextStringElement.textContent = "--";
         }
     });
 
@@ -315,7 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
     muteSoundCheckbox.addEventListener('change', () => {
         isMuted = muteSoundCheckbox.checked;
         if (isMuted) {
-            // Pause and mute all playing sounds
             tickSound.pause();
             tickSound.currentTime = 0;
             clickSound.pause();
@@ -326,5 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (oscillator) oscillator.stop();
         }
+    });
+
+    reverseLayoutCheckbox.addEventListener('change', () => {
+        updateDisplay();
     });
 });
