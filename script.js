@@ -194,10 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextNoteHolder = getRandomMusicalNote(nextStringHolder, nextStringHolder === currentStringHolder);
             }
 
-            if (drillRunning && beatCount === 0 && currentStringIndex % 4 === 0 && duration > 0.3) {
-                duration = Math.max(0.3, duration - 0.1);
-                bpmElement.textContent = Math.round(60 / duration) + " BPM";
-            }
+            //if (drillRunning && beatCount === 0 && currentStringIndex % 4 === 0 && duration > 0.3) {
+              //  duration = Math.max(0.3, duration - 0.1);
+               // bpmElement.textContent = Math.round(60 / duration) + " BPM";
+            //}
         }
 
         currentNoteElement.textContent = currentNoteHolder;
