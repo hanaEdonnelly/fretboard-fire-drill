@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fretboard Fire Drill</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Fretboard Fire Drill</h1>
+        <div class="display">
+            <p>Note: <span id="currentNote">--</span></p>
+            <p>String: <span id="currentString">--</span></p>
+            <p>Next Note: <span id="nextNote">--</span></p>
+            <p>Next String: <span id="nextString">--</span></p>
+            <p>Tempo: <span id="bpm">25 BPM</span></p>
+        </div>
+        <div class="controls">
+            <label><input type="checkbox" id="showString" checked> Show String</label>
+            <label><input type="checkbox" id="consecutiveStrings"> Consecutive Strings</label>
+            <label><input type="checkbox" id="previewNext"> Preview Next Note</label>
+            <input type="range" id="tempoSlider" min="8" max="9.9" value="8.5" step="0.1">
+            <label><input type="checkbox" id="muteSound"> Mute Sound</label>
+        </div>
+        <div class="buttons">
+            <button id="startButton">Start</button>
+            <button id="stopButton">Stop</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
