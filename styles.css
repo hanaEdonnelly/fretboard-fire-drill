@@ -133,6 +133,7 @@ button:hover {
     width: 400px;
     position: relative;
     overflow: hidden;
+    margin-top: 40px; /* Added consistent spacing */
 }
 
 .content-box::before {
