@@ -63,4 +63,46 @@
         <p>I’ve spent countless hours—hundreds, maybe thousands—watching guitar teachers on YouTube, chasing the next big breakthrough. And here’s the cold, hard truth: there are no shortcuts to mastering the fretboard. It’s the great divide every guitarist faces, the impasse where talent alone won’t cut it. But here’s the good news: with the right tools, you can bridge that gap and turn frustration into fluency.</p>
         
         <h3>Why It’s Non-Negotiable</h3>
-        <p>Learning every note isn’t about being a nerdy music theory snob who lectures everyone about diminished sevenths at parties (though, let’s be real, that’s a vibe). It’s about unlocking a profound freedom—the power to express, to create, to let your guitar sing with the passion of your soul—whether you’re rocking a stadium or riffing alone in your mancave (or ladycave, because let’s be honest, ‘
+        <p>Learning every note isn’t about being a nerdy music theory snob who lectures everyone about diminished sevenths at parties (though, let’s be real, that’s a vibe). It’s about unlocking a profound freedom—the power to express, to create, to let your guitar sing with the passion of your soul—whether you’re rocking a stadium or riffing alone in your mancave (or ladycave, because let’s be honest, ‘womencave’ sounds like a wine cellar with worse lighting). Whether you swear by tube amps and analog pedals or live locked into your Helix with headphones, we gear nerds get it: the fretboard is your foundation. Here’s why:</p>
+        
+        <ul>
+            <li><strong>Escape the Plateau:</strong> Stop playing the same old licks like a broken record. Knowing the notes lets you explore new territory and keeps your creativity from growing cobwebs.</li>
+            <li><strong>Solo Like a Boss:</strong> Want to jam over “Sweet Child O’ Mine”? Good luck without knowing where G and D live on the neck—fretboard mastery turns chaos into killer solos.</li>
+            <li><strong>Improvise Without Panic:</strong> Jam sessions won’t feel like a pop quiz you didn’t study for. You’ll flow like a pro instead of praying for a chord you recognize.</li>
+            <li><strong>Level Up Fast:</strong> Theory becomes your sidekick, not your nemesis. Scales, modes, and chords snap into place when you know the lay of the land.</li>
+            <li><strong>Bragging Rights:</strong> Casually drop, “Oh yeah, that’s an E flat on the 11th fret,” and watch your guitarist buddies’ jaws hit the floor. Cool factor: maxed out.</li>
+        </ul>
+        
+        <p>So, grab that guitar, fire up this Fretboard Fire Drill, and turn your plateau into a launchpad. The only thing standing between you and guitar greatness is a little fretboard know-how—and maybe a coffee for the guy who made this tool (wink, wink). Let’s get shredding!</p>
+    </div>
+
+    <!-- Guitar Nerd Links -->
+    <div class="content-box">
+        <h2>Guitar Nerd Links</h2>
+        <h3>Find Fair Market Value for Gear</h3>
+        <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? We guitar nerds need to know the real deal. Enter a product below to check its average sold price on Reverb’s Price Guide—use it as leverage when you’re haggling like a pro on Marketplace.</p>
+        <div class="search-container">
+            <input type="text" id="gearSearch" placeholder="e.g., Boss DD-8, Fender Stratocaster">
+            <button id="searchButton">Search</button>
+        </div>
+        <p><a href="https://reverb.com/price-guide" target="_blank">Browse Reverb’s Price Guide</a> for more gear insights!</p>
+        <h3>More Nerd Fuel</h3>
+        <ul>
+            <li><a href="https://www.guitartuner.app/" target="_blank">Online Guitar Tuner</a> - Stay in tune, no excuses.</li>
+            <li><a href="https://www.thegearpage.net/board/" target="_blank">The Gear Page Forum</a> - Geek out with fellow tone chasers.</li>
+            <li><a href="https://www.diypedals.com/" target="_blank">DIY Pedals</a> - Build your own stompbox and flex.</li>
+            <li><a href="chord-hunter.html">Chord Hunter</a> - Map out chords like a pro (coming soon).</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('searchButton').addEventListener('click', () => {
+            const query = document.getElementById('gearSearch').value.trim();
+            if (query) {
+                window.open(`https://reverb.com/price-guide?query=${encodeURIComponent(query)}`, '_blank');
+            }
+        });
+    </script>
+</body>
+</html>
