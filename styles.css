@@ -40,10 +40,10 @@ body {
     z-index: 2;
 }
 
-h1 {
-    color: #000000;
-    font-size: 24px;
-    font-weight: bold;
+.logo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
     margin-bottom: 10px;
 }
 
@@ -94,4 +94,43 @@ button {
 
 button:hover {
     background-color: #b0b0b5;
+}
+
+.tuner-link {
+    margin: 5px 0; /* Matches padding of other links */
+}
+
+.tuner-link a {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #4CAF50;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.tuner-link a:hover {
+    color: #45a049;
+}
+
+h2 {
+    font-size: 1.2em;
+    color: #333333;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.buy-me-a-coffee {
+    margin: 15px 0;
+    padding: 5px;
+    display: inline-block;
+}
+
+.coffee-image {
+    height: 40px;
+    width: auto;
 }
