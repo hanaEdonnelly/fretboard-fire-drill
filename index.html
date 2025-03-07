@@ -98,6 +98,16 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('searchButton').addEventListener('click', () => {
+                const query = document.getElementById('gearSearch').value.trim();
+                if (query) {
+                    window.open(`https://reverb.com/price-guide?query=${encodeURIComponent(query)}`, '_blank');
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             const backgrounds = [
                 'guitar1.JPG',
                 'guitar2.jpg',
@@ -115,40 +125,9 @@
                 'guitar14.jpg',
                 'guitar15.jpg'
             ];
-
-            // Fisher-Yates shuffle to randomize the array
-            function shuffle(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-
-            const shuffledBackgrounds = shuffle([...backgrounds]);
-            let currentBgIndex = -1; // Start with -1 to force initial change
-
-            function changeBackground() {
-                const scrollPosition = window.scrollY;
-                const windowHeight = window.innerHeight;
-                const newIndex = Math.floor(scrollPosition / windowHeight) % shuffledBackgrounds.length;
-                if (newIndex !== currentBgIndex) {
-                    console.log('Changing background to index:', newIndex);
-                    currentBgIndex = newIndex;
-                    document.body.style.backgroundImage = `url('${shuffledBackgrounds[currentBgIndex]}')`;
-                    document.body.style.backgroundSize = 'cover';
-                }
-            }
-
-            window.addEventListener('scroll', changeBackground);
-            changeBackground(); // Initial call
-        });
-
-        document.getElementById('searchButton').addEventListener('click', () => {
-            const query = document.getElementById('gearSearch').value.trim();
-            if (query) {
-                window.open(`https://reverb.com/price-guide?query=${encodeURIComponent(query)}`, '_blank');
-            }
+            const randomIndex = Math.floor(Math.random() * backgrounds.length);
+            document.body.style.backgroundImage = `url('${backgrounds[randomIndex]}')`;
+            document.body.style.backgroundSize = 'cover';
         });
     </script>
 </body>
