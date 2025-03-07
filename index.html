@@ -63,7 +63,7 @@
         <p>I’ve spent countless hours—hundreds, maybe thousands—watching guitar teachers on YouTube, chasing the next big breakthrough. And here’s the cold, hard truth: there are no shortcuts to mastering the fretboard. It’s the great divide every guitarist faces, the impasse where talent alone won’t cut it. But here’s the good news: with the right tools, you can bridge that gap and turn frustration into fluency.</p>
         
         <h3>Why It’s Non-Negotiable</h3>
-        <p>Learning every note isn’t about being a nerdy music theory snob who lectures everyone about diminished sevenths at parties (though, let’s be real, that’s a vibe). It’s about unlocking a profound freedom—the power to express, to create, to let your guitar sing with the passion of your soul—whether you’re rocking a stadium or riffing alone in your mancave (or ladycave, because let’s be honest, ‘womencave’ sounds like a wine cellar with worse lighting). Whether you swear by tube amps and analog pedals or live locked into your Helix with headphones, we gear nerds get it: the fretboard is your foundation. Here’s why:</p>
+        <p>Learning every note isn’t about being a nerdy music theory snob who lectures everyone about diminished sevenths at parties (though, let’s be real, that’s a vibe). It’s about unlocking a profound freedom—the power to express, to create, to let your guitar sing with the passion of your soul—whether you’re rocking a stadium or riffing alone in your mancave (or for the PC bonus: ladycave). Whether you swear by tube amps and analog pedals or live locked into your Helix with headphones, the fretboard is your foundation. Here’s why:</p>
         
         <ul>
             <li><strong>Escape the Plateau:</strong> Stop playing the same old licks like a broken record. Knowing the notes lets you explore new territory and keeps your creativity from growing cobwebs.</li>
@@ -80,13 +80,13 @@
     <div class="content-box">
         <h2>Guitar Nerd Links</h2>
         <h3>Find Fair Market Value for Gear</h3>
-        <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? We guitar nerds need to know the real deal. Enter a product below to check its average sold price on Reverb’s Price Guide—use it as leverage when you’re haggling like a pro on Marketplace.</p>
+        <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? Guitarists need to know the real deal. Enter a product below to check its average sold price on Reverb’s Price Guide—use it as leverage when you’re haggling like a pro on Marketplace.</p>
         <div class="search-container">
             <input type="text" id="gearSearch" placeholder="e.g., Boss DD-8, Fender Stratocaster">
             <button id="searchButton">Search</button>
         </div>
         <p><a href="https://reverb.com/price-guide" target="_blank">Browse Reverb’s Price Guide</a> for more gear insights!</p>
-        <h3>More Nerd Fuel</h3>
+        <h3>More Fuel for Players</h3>
         <ul>
             <li><a href="https://www.guitartuner.app/" target="_blank">Online Guitar Tuner</a> - Stay in tune, no excuses.</li>
             <li><a href="https://www.thegearpage.net/board/" target="_blank">The Gear Page Forum</a> - Geek out with fellow tone chasers.</li>
@@ -97,6 +97,43 @@
 
     <script src="script.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgrounds = [
+                'images/guitar1.jpg',
+                'images/guitar2.jpg',
+                'images/guitar3.jpg',
+                'images/guitar4.jpg',
+                'images/guitar5.jpg',
+                'images/guitar6.jpg',
+                'images/guitar7.jpg',
+                'images/guitar8.jpg',
+                'images/guitar9.jpg',
+                'images/guitar10.jpg',
+                'images/guitar11.jpg',
+                'images/guitar12.jpg',
+                'images/guitar13.jpg',
+                'images/guitar14.jpg',
+                'images/guitar15.jpg'
+            ];
+            let currentBgIndex = 0;
+
+            function changeBackground() {
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+
+                // Change background every time a new window height is scrolled
+                const newIndex = Math.floor(scrollPosition / windowHeight);
+                if (newIndex !== currentBgIndex && newIndex < backgrounds.length) {
+                    currentBgIndex = newIndex;
+                    document.body.style.backgroundImage = `url('${backgrounds[currentBgIndex]}')`;
+                    document.body.style.backgroundSize = 'cover'; // Ensure proper fit
+                }
+            }
+
+            window.addEventListener('scroll', changeBackground);
+            changeBackground(); // Initial call
+        });
+
         document.getElementById('searchButton').addEventListener('click', () => {
             const query = document.getElementById('gearSearch').value.trim();
             if (query) {
