@@ -4,7 +4,6 @@ body {
     font-family: 'SF Pro Display', Arial, sans-serif;
     background: url('guitar1.JPG') no-repeat center center;
     background-size: cover;
-    transition: background 0.5s ease; /* Smooth transition for background change */
 }
 
 .container {
@@ -106,7 +105,7 @@ button:hover {
     width: 400px;
     position: relative;
     overflow: hidden;
-    margin-top: 40px;
+    margin: 40px auto; /* Centers the content boxes horizontally */
 }
 
 .content-box::before {
