@@ -2,9 +2,100 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'SF Pro Display', Arial, sans-serif;
-    background: url('images/guitar1.jpg') no-repeat center center;
+    background: url('guitar1.JPG') no-repeat center center;
     background-size: cover;
     transition: background 0.5s ease; /* Smooth transition for background change */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    padding: 20px;
+}
+
+h1 {
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.display {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.display p {
+    margin: 5px 0;
+    color: #333333;
+    font-size: 16px;
+}
+
+.controls {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.control-row label {
+    font-size: 14px;
+    color: #333333;
+}
+
+#tempoSlider {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.tempo-label {
+    font-size: 14px;
+    color: #333333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #d1d1d6;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'SF Pro Display', Arial, sans-serif;
+}
+
+button:hover {
+    background-color: #b0b0b5;
+}
+
+.adsense-container {
+    margin-top: 40px;
+    text-align: center;
 }
 
 .content-box {
@@ -16,6 +107,69 @@ body {
     position: relative;
     overflow: hidden;
     margin-top: 40px;
+}
+
+.content-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.content-box > * {
+    position: relative;
+    z-index: 2;
+}
+
+.content-box h2 {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.content-box h3 {
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content-box p {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.content-box a {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
+.content-box a:hover {
+    color: #003366;
+}
+
+.content-box ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content-box li {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.content-box li strong {
+    color: #000000;
 }
 
 .search-container {
