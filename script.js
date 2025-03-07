@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const backgroundImages = [
-        'guitar1.jpg', 'guitar2.jpg', 'guitar3.jpg', 'guitar4.jpg', 'guitar5.jpg',
+        'guitar1.JPG', 'guitar2.jpg', 'guitar3.jpg', 'guitar4.jpg', 'guitar5.jpg',
         'guitar6.jpg', 'guitar7.jpg', 'guitar8.jpg', 'guitar9.jpg', 'guitar10.jpg',
         'guitar11.jpg', 'guitar12.jpg', 'guitar13.jpg', 'guitar14.jpg', 'guitar15.jpg'
     ];
