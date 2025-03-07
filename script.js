@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let drillRunning = false;
     let metronomeRunning = false;
     let duration = 2.4; // Default to 25 BPM
-    let currentStringIndex = 0;
+    let currentStringIndex = 0; // Start at low E (strings[0])
     let beatCount = 0;
     let currentNoteHolder = "--";
     let currentStringHolder = "--";
@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextStringHolder = "--";
     let lastNoteHolder = "--"; // Track previous note for sequence checking
     let isMuted = false; // Track mute state
+    let playedNoteIndices = new Set(); // Track unique chromatic indices (0-11) played on the current string
 
     const currentNoteElement = document.getElementById('currentNote');
     const currentStringElement = document.getElementById('currentString');
@@ -150,6 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (showStringCheckbox.checked && sameString && currentNoteHolder !== "--") {
             const validIntervals = [3, 4, 5, 7, 8, 9];
+            let attempts = 0;
+            const maxAttempts = 100; // Prevent infinite loop
             do {
                 const direction = Math.random() < 0.5 ? 1 : -1;
                 const interval = validIntervals[Math.floor(Math.random() * validIntervals.length)] * direction;
@@ -162,6 +165,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     const baseNote = chromaticNotes[newIndex];
                     const options = notes.filter(n => getChromaticIndex(n) === newIndex);
                     selectedNote = options[Math.floor(Math.random() * options.length)];
+                }
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    console.warn("Max attempts reached, relaxing constraints");
+                    // Relax constraints if we can't find a new note
+                    const availableIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].filter(idx => !playedNoteIndices.has(idx));
+                    if (availableIndices.length > 0) {
+                        const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+                        selectedNote = notes.find(n => getChromaticIndex(n) === randomIndex);
+                    } else {
+                        selectedNote = chromaticNotes[Math.floor(Math.random() * 12)]; // Fallback
+                    }
+                    break;
                 }
             } while (!selectedNote);
         } else {
@@ -177,6 +193,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } while (!selectedNote);
         }
+
+        // If consecutive strings is checked, ensure the note hasn't been played yet
+        if (consecutiveStringsCheckbox.checked && currentNoteHolder !== "--") {
+            const selectedIndex = getChromaticIndex(selectedNote);
+            console.log("Selected note:", selectedNote, "Index:", selectedIndex, "Played indices:", Array.from(playedNoteIndices));
+            if (playedNoteIndices.has(selectedIndex)) {
+                let newNote;
+                let attempts = 0;
+                const maxAttempts = 100;
+                do {
+                    const validIntervals = [3, 4, 5, 7, 8, 9];
+                    const direction = Math.random() < 0.5 ? 1 : -1;
+                    const interval = validIntervals[Math.floor(Math.random() * validIntervals.length)] * direction;
+                    const newIndex = (currentIndex + interval + 12) % 12;
+                    if (Math.abs(newIndex - currentIndex) >= 3) {
+                        const baseNote = chromaticNotes[newIndex];
+                        const options = notes.filter(n => getChromaticIndex(n) === newIndex);
+                        newNote = options[Math.floor(Math.random() * options.length)];
+                    }
+                    attempts++;
+                    if (attempts >= maxAttempts) {
+                        console.warn("Max attempts reached, picking any unplayed note");
+                        const availableIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].filter(idx => !playedNoteIndices.has(idx));
+                        if (availableIndices.length > 0) {
+                            const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+                            newNote = notes.find(n => getChromaticIndex(n) === randomIndex);
+                        } else {
+                            newNote = chromaticNotes[Math.floor(Math.random() * 12)]; // Fallback
+                        }
+                        break;
+                    }
+                } while (!newNote || playedNoteIndices.has(getChromaticIndex(newNote)));
+                selectedNote = newNote;
+            }
+        }
+
         return selectedNote;
     }
 
@@ -184,11 +236,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (reverseLayoutCheckbox.checked) {
             currentNoteLabel.textContent = "String:";
             currentStringLabel.textContent = "Note:";
-            nextNoteLabel.textContent = "Next String:";
-            nextStringLabel.textContent = "Next Note:";
+            nextNoteLabel.textContent = "Next String:"; // Flipped label
+            nextStringLabel.textContent = "Next Note:"; // Flipped label
             currentNoteElement.textContent = showStringCheckbox.checked ? currentStringHolder : "--";
             currentStringElement.textContent = currentNoteHolder;
-            nextNoteElement.textContent = previewNextCheckbox.checked ? nextStringHolder : "--";
+            // Swap next note and next string content in reverse layout
+            nextNoteElement.textContent = previewNextCheckbox.checked && showStringCheckbox.checked ? nextStringHolder : "--";
             nextStringElement.textContent = previewNextCheckbox.checked ? nextNoteHolder : "--";
         } else {
             currentNoteLabel.textContent = "Note:";
@@ -198,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentNoteElement.textContent = currentNoteHolder;
             currentStringElement.textContent = showStringCheckbox.checked ? currentStringHolder : "--";
             nextNoteElement.textContent = previewNextCheckbox.checked ? nextNoteHolder : "--";
-            nextStringElement.textContent = previewNextCheckbox.checked ? nextStringHolder : "--";
+            nextStringElement.textContent = showStringCheckbox.checked && previewNextCheckbox.checked ? nextStringHolder : "--";
         }
     }
 
@@ -211,11 +264,24 @@ document.addEventListener('DOMContentLoaded', () => {
             currentStringHolder = nextStringHolder;
 
             if (consecutiveStringsCheckbox.checked) {
-                const totalCycles = strings.length * 3;
-                currentStringIndex = (currentStringIndex + 1) % totalCycles;
-                const stringCycleIndex = Math.floor(currentStringIndex / 3);
-                nextStringHolder = strings[stringCycleIndex];
-                nextNoteHolder = getRandomMusicalNote(nextStringHolder, nextStringHolder === currentStringHolder);
+                // Add the current note's chromatic index to the set (only after the first note)
+                if (currentNoteHolder !== "--") {
+                    const currentIndex = getChromaticIndex(currentNoteHolder);
+                    playedNoteIndices.add(currentIndex);
+                    console.log("Added note index:", currentIndex, "Played indices size:", playedNoteIndices.size, "Total indices:", Array.from(playedNoteIndices));
+                }
+
+                // Check if all 12 unique chromatic indices have been played
+                if (playedNoteIndices.size >= 12) {
+                    console.log("All 12 notes played on string", currentStringHolder, "moving to next string");
+                    currentStringIndex = (currentStringIndex + 1) % strings.length;
+                    nextStringHolder = strings[currentStringIndex];
+                    playedNoteIndices.clear(); // Reset the set for the new string
+                    console.log("New string:", nextStringHolder);
+                } else {
+                    nextStringHolder = currentStringHolder; // Stay on the same string
+                }
+                nextNoteHolder = getRandomMusicalNote(nextStringHolder, true);
             } else {
                 nextStringHolder = strings[Math.floor(Math.random() * strings.length)];
                 nextNoteHolder = getRandomMusicalNote(nextStringHolder, nextStringHolder === currentStringHolder);
@@ -241,15 +307,14 @@ document.addEventListener('DOMContentLoaded', () => {
             nextNoteHolder = "--";
             nextStringHolder = "--";
             lastNoteHolder = "--";
+            playedNoteIndices.clear(); // Reset played note indices
+            currentStringIndex = 0; // Start on low E (strings[0])
 
             if (consecutiveStringsCheckbox.checked) {
-                currentStringIndex = Math.floor(Math.random() * (strings.length * 3));
-                const stringCycleIndex = Math.floor(currentStringIndex / 3);
-                currentStringHolder = strings[stringCycleIndex];
+                currentStringHolder = strings[currentStringIndex];
                 currentNoteHolder = getRandomMusicalNote(currentStringHolder, false);
-                const nextStringIndex = (stringCycleIndex + 1) % strings.length;
-                nextStringHolder = strings[nextStringIndex];
-                nextNoteHolder = getRandomMusicalNote(nextStringHolder, false);
+                nextStringHolder = currentStringHolder; // Stay on the same string initially
+                nextNoteHolder = getRandomMusicalNote(nextStringHolder, true);
             } else {
                 currentStringHolder = strings[Math.floor(Math.random() * strings.length)];
                 currentNoteHolder = getRandomMusicalNote(currentStringHolder, false);
@@ -284,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentStringHolder = "--";
         nextNoteHolder = "--";
         nextStringHolder = "--";
+        playedNoteIndices.clear(); // Reset played note indices on stop
         updateDisplay();
     }
 
