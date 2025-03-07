@@ -76,16 +76,32 @@
         <p>So, grab that guitar, fire up this Fretboard Fire Drill, and turn your plateau into a launchpad. The only thing standing between you and guitar greatness is a little fretboard know-how—and maybe a coffee for the guy who made this tool (wink, wink). Let’s get shredding!</p>
     </div>
 
-    <!-- Reverb Price Guide Box -->
-    <div class="reverb-box">
-        <h2>Find Fair Market Value for Gear</h2>
-        <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? We guitar nerds need to know the real deal. Enter a product below to check its average sold price on Reverb.com—because overpaying for gear is the ultimate buzzkill.</p>
-        <div class="search-container">
-            <input type="text" id="gearSearch" placeholder="e.g., Boss DD-8, Fender Stratocaster, Tube Screamer">
-            <button id="searchButton">Search</button>
-        </div>
-        <p id="searchResult">*Coming Soon: Enter a guitar, pedal, or amp to see its Reverb Price Guide value. For now, <a href="https://reverb.com/price-guide" target="_blank">check Reverb’s Price Guide</a> manually while we work on this feature!*</p>
+   <!-- Guitar Nerd Links -->
+<div class="content-box">
+    <h2>Guitar Nerd Links</h2>
+    <h3>Find Fair Market Value for Gear</h3>
+    <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? We guitar nerds need to know the real deal. Enter a product below to check its average sold price on Reverb’s Price Guide—use it as leverage when you’re haggling like a pro on Marketplace.</p>
+    <div class="search-container">
+        <input type="text" id="gearSearch" placeholder="e.g., Boss DD-8, Fender Stratocaster">
+        <button id="searchButton">Search</button>
     </div>
+    <p><a href="https://reverb.com/price-guide" target="_blank">Browse Reverb’s Price Guide</a> for more gear insights!</p>
+    <h3>More Nerd Fuel</h3>
+    <ul>
+        <li><a href="https://www.guitartuner.app/" target="_blank">Online Guitar Tuner</a> - Stay in tune, no excuses.</li>
+        <li><a href="https://www.thegearpage.net/board/" target="_blank">The Gear Page Forum</a> - Geek out with fellow tone chasers.</li>
+        <li><a href="https://www.diypedals.com/" target="_blank">DIY Pedals</a> - Build your own stompbox and flex.</li>
+    </ul>
+</div>
+
+<script>
+    document.getElementById('searchButton').addEventListener('click', () => {
+        const query = document.getElementById('gearSearch').value.trim();
+        if (query) {
+            window.open(`https://reverb.com/price-guide?query=${encodeURIComponent(query)}`, '_blank');
+        }
+    });
+</script>
 
     <script src="script.js"></script>
 </body>
