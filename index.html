@@ -63,7 +63,7 @@
         <p>I’ve spent countless hours—hundreds, maybe thousands—watching guitar teachers on YouTube, chasing the next big breakthrough. And here’s the cold, hard truth: there are no shortcuts to mastering the fretboard. It’s the great divide every guitarist faces, the impasse where talent alone won’t cut it. But here’s the good news: with the right tools, you can bridge that gap and turn frustration into fluency.</p>
         
         <h3>Why It’s Non-Negotiable</h3>
-        <p>Learning every note isn’t about being a nerdy music theory snob who lectures everyone about diminished sevenths at parties (though, let’s be real, that’s a vibe). It’s about unlocking a profound freedom—the power to express, to create, to let your guitar sing with the passion of your soul—whether you’re rocking a stadium or riffing alone in your mancave (or ladycave, because let’s be honest, ‘womencave’ sounds like a wine cellar with worse lighting). Whether you swear by tube amps and analog pedals or live locked into your Helix with headphones, we gear nerds get it: the fretboard is your foundation. Here’s why:</p>
+        <p>Learning every note isn’t about being a nerdy music theory snob who lectures everyone about diminished sevenths at parties (though, let’s be real, that’s a vibe). It’s about unlocking a profound freedom—the power to express, to create, to let your guitar sing with the passion of your soul—whether you’re rocking a stadium or riffing alone in your mancave (or for the PC bonus: ladycave). Whether you swear by tube amps and analog pedals or live locked into your Helix with headphones, the fretboard is your foundation. Here’s why:</p>
         
         <ul>
             <li><strong>Escape the Plateau:</strong> Stop playing the same old licks like a broken record. Knowing the notes lets you explore new territory and keeps your creativity from growing cobwebs.</li>
@@ -80,13 +80,13 @@
     <div class="content-box">
         <h2>Guitar Nerd Links</h2>
         <h3>Find Fair Market Value for Gear</h3>
-        <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? We guitar nerds need to know the real deal. Enter a product below to check its average sold price on Reverb’s Price Guide—use it as leverage when you’re haggling like a pro on Marketplace.</p>
+        <p>Negotiating on Facebook Marketplace? Wondering if that Tube Screamer or Les Paul is a steal? Guitarists need to know the real deal. Enter a product below to check its average sold price on Reverb’s Price Guide—use it as leverage when you’re haggling like a pro on Marketplace.</p>
         <div class="search-container">
             <input type="text" id="gearSearch" placeholder="e.g., Boss DD-8, Fender Stratocaster">
             <button id="searchButton">Search</button>
         </div>
         <p><a href="https://reverb.com/price-guide" target="_blank">Browse Reverb’s Price Guide</a> for more gear insights!</p>
-        <h3>More Nerd Fuel</h3>
+        <h3>More Fuel for Players</h3>
         <ul>
             <li><a href="https://www.guitartuner.app/" target="_blank">Online Guitar Tuner</a> - Stay in tune, no excuses.</li>
             <li><a href="https://www.thegearpage.net/board/" target="_blank">The Gear Page Forum</a> - Geek out with fellow tone chasers.</li>
@@ -97,6 +97,53 @@
 
     <script src="script.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgrounds = [
+                'guitar1.JPG',
+                'guitar2.jpg',
+                'guitar3.jpg',
+                'guitar4.jpg',
+                'guitar5.jpg',
+                'guitar6.jpg',
+                'guitar7.jpg',
+                'guitar8.jpg',
+                'guitar9.jpg',
+                'guitar10.jpg',
+                'guitar11.jpg',
+                'guitar12.jpg',
+                'guitar13.jpg',
+                'guitar14.jpg',
+                'guitar15.jpg'
+            ];
+
+            // Fisher-Yates shuffle to randomize the array
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            const shuffledBackgrounds = shuffle([...backgrounds]);
+            let currentBgIndex = -1; // Start with -1 to force initial change
+
+            function changeBackground() {
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const newIndex = Math.floor(scrollPosition / windowHeight) % shuffledBackgrounds.length;
+                if (newIndex !== currentBgIndex) {
+                    console.log('Changing background to index:', newIndex);
+                    currentBgIndex = newIndex;
+                    document.body.style.backgroundImage = `url('${shuffledBackgrounds[currentBgIndex]}')`;
+                    document.body.style.backgroundSize = 'cover';
+                }
+            }
+
+            window.addEventListener('scroll', changeBackground);
+            changeBackground(); // Initial call
+        });
+
         document.getElementById('searchButton').addEventListener('click', () => {
             const query = document.getElementById('gearSearch').value.trim();
             if (query) {
