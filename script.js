@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb",
         "G", "G#", "Ab", "A", "A#", "Bb", "B"
     ];
-    const strings = ["E", "A", "D", "G", "B", "e"];
+    const strings = ["E", "A", "D", "G"];
     let drillRunning = false;
     let metronomeRunning = false;
     let duration = 2.4; // Default to 25 BPM
